@@ -1,0 +1,15 @@
+This script allows you to leave loading till after the page has rendered
+
+To use include the script in your header and then use the following:
+
+jQuery.deferJSLoad('url.js');
+
+
+To check the js has loaded and to bind further events use code like this:
+
+function jsTest() {
+  //example of lazyloaded fancybox plugin
+  $('a.popup').fancybox();
+}
+
+$(window).bind('deferredJsLoaded', jsTest);
