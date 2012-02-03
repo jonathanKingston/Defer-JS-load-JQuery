@@ -11,17 +11,21 @@
       }
     },
     loaded : function() {
-      //This event gets triggered when all deffered js has loaded, you can then bind to this event and be sure all your code is there.
-      $(window).trigger('deferredJsLoaded');
+      //This event gets triggered when all deferred js has loaded, you can then bind to this event and be sure all your code is there.
+      $(window).trigger('deferJSLoaded');
     },
     loadJsQueue : function() {
       for(var i = 0; i < jsQueue.length; i++) {
-        this.getScript(jsQueue[i], methods.loadedJs);
+        $.getScript(jsQueue[i], methods.loadedJs);
+      }
+	  if(jsQueue.length == 0) {
+        //No js to load so call event anyway
+        methods.loadedJs();
       }
     },
     loadedJs : function() {
       loadJsCount += 1;
-      if(loadJsCount == jsQueue.length) {
+      if(loadJsCount >= jsQueue.length) {
         methods.loaded();
       }
     }
